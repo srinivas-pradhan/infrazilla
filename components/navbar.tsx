@@ -61,7 +61,7 @@ const NavBar = () => {
                 </a>
                 <div className="ml-auto flex flex-row items-center">
                     <NavigationMenu>
-                        <NavigationMenuList className="gap-24">
+                        <NavigationMenuList className="gap-48">
                             <NavigationMenuItem>
                                 <NavigationMenuTrigger className="font-mono bg-slate-200 hover:bg-slate-100 text-gray-600 hover:text-gray-900 text-md">Services</NavigationMenuTrigger>
                                 <NavigationMenuContent>
