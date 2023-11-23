@@ -61,7 +61,7 @@ const NavBar = () => {
                 </a>
                 <div className="ml-auto flex flex-row items-center">
                     <NavigationMenu>
-                        <NavigationMenuList className="gap-5">
+                        <NavigationMenuList className="gap-24">
                             <NavigationMenuItem>
                                 <NavigationMenuTrigger className="font-mono bg-slate-200 hover:bg-slate-100 text-gray-600 hover:text-gray-900 text-md">Services</NavigationMenuTrigger>
                                 <NavigationMenuContent>
@@ -73,22 +73,6 @@ const NavBar = () => {
                                             href={service.href}
                                             >
                                             {service.description}
-                                        </ListItem>
-                                    ))}
-                                    </ul>
-                                </NavigationMenuContent>
-                            </NavigationMenuItem>
-                            <NavigationMenuItem>
-                                <NavigationMenuTrigger className="font-mono bg-slate-200 hover:bg-slate-100 text-gray-600 hover:text-gray-900 text-md">Documentation</NavigationMenuTrigger>
-                                <NavigationMenuContent>
-                                    <ul className="bg-slate-200 grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                                    {Documentation.map((doc) => (
-                                        <ListItem
-                                            key={doc.title}
-                                            title={doc.title}
-                                            href={doc.href}
-                                            >
-                                            {doc.description}
                                         </ListItem>
                                     ))}
                                     </ul>
@@ -113,7 +97,7 @@ const NavBar = () => {
                     </NavigationMenu>
                 </div>
                 <div className="ml-auto flex items-center space-x-4 scale-150">
-                    <UserButton afterSignOutUrl="/"/>
+                    <UserButton afterSignOutUrl="/" />
                 </div>
             </div>
         </div>
