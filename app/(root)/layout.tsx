@@ -24,7 +24,16 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ClientOnly>
-            <NavBar/>
+            <NavBar
+              width_div="w-full"
+              navbarstyle="bg-slate-200 shadow-sm flex h-16 items-center px-8"
+              logo_styling="font-mono text-2xl font-semibold scale-150"
+              dropdown="ml-auto flex flex-row items-center"
+              navbarspacing="gap-48 px-10"
+              dropdown_menustyling="font-mono bg-slate-200 hover:bg-slate-100 text-gray-600 hover:text-gray-900 text-md"
+              navbaritemstyle="cursor-pointer font-mono text-gray-600 hover:text-gray-900 text-md"
+              useraccountstyle="cursor-pointer font-mono text-gray-600 hover:text-gray-900 text-md"
+            />
             <Swipe
                 imagedata={ImageData}
                 mousewheel={SwipeConfig.mousewheel}

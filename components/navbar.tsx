@@ -16,8 +16,18 @@ import {
 
 import Link from "next/link";
 
-import { Services, Documentation} from '@/utils/usernav';
+import { Services } from '@/utils/usernav';
 
+interface NavBarProps {
+    width_div?: string;
+    navbarstyle?: string;
+    navbarspacing?: string;
+    navbaritemstyle?: string;
+    logo_styling?: string;
+    dropdown?: string;
+    dropdown_menustyling?: string;
+    useraccountstyle?: string;
+}
 
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,
@@ -45,25 +55,34 @@ const ListItem = React.forwardRef<
 })
 ListItem.displayName = "ListItem"
 
-const NavBar = () => {
+const NavBar:React.FC<NavBarProps> = ({
+    width_div,
+    navbarstyle,
+    logo_styling,
+    dropdown,
+    navbarspacing,
+    dropdown_menustyling,
+    navbaritemstyle,
+    useraccountstyle
+}) => {
     const [menuOpen, setmenuOpen] = React.useState(false);
 
     const  handleNav = () => {
         setmenuOpen(!menuOpen)
     }
     return (
-        <div className="w-full">
-            <div className="bg-slate-200 shadow-sm flex h-16 items-center px-8">
+        <div className={cn("", width_div)}>
+            <div className={cn("", navbarstyle)}>
                 <a href="/" className="cursor-pointer">
-                    <span className="font-mono text-2xl font-semibold scale-150">
+                    <span className={cn("",logo_styling)}>
                         InfraZilla
                     </span>
                 </a>
-                <div className="ml-auto flex flex-row items-center">
+                <div className={cn("", dropdown)}>
                     <NavigationMenu>
-                        <NavigationMenuList className="gap-48">
+                        <NavigationMenuList className={cn("", navbarspacing)}>
                             <NavigationMenuItem>
-                                <NavigationMenuTrigger className="font-mono bg-slate-200 hover:bg-slate-100 text-gray-600 hover:text-gray-900 text-md">Services</NavigationMenuTrigger>
+                                <NavigationMenuTrigger className={cn("", dropdown_menustyling)}>Services</NavigationMenuTrigger>
                                 <NavigationMenuContent>
                                     <ul className="bg-slate-200 grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
                                     {Services.map((service) => (
@@ -79,24 +98,24 @@ const NavBar = () => {
                                 </NavigationMenuContent>
                             </NavigationMenuItem>
                             <Link href="/faqs" legacyBehavior passHref>
-                                <NavigationMenuLink className="cursor-pointer font-mono text-gray-600 hover:text-gray-900 text-md">
+                                <NavigationMenuLink className={cn("", navbaritemstyle)}>
                                     FAQs
                                 </NavigationMenuLink>
                             </Link>
                             <Link href="/feedback" legacyBehavior passHref>
-                                <NavigationMenuLink className="cursor-pointer font-mono text-gray-600 hover:text-gray-900 text-md">
+                                <NavigationMenuLink className={cn("", navbaritemstyle)}>
                                     Feedback
                                 </NavigationMenuLink>
                             </Link>
                             <Link href="/infra" legacyBehavior passHref>
-                                <NavigationMenuLink className="cursor-pointer font-mono text-gray-600 hover:text-gray-900 text-md">
+                                <NavigationMenuLink className={cn("", navbaritemstyle)}>
                                     My Infrastructure
                                 </NavigationMenuLink>
                             </Link>
                         </NavigationMenuList>
                     </NavigationMenu>
                 </div>
-                <div className="ml-auto flex items-center space-x-4 scale-150">
+                <div className={cn("",useraccountstyle)}>
                     <UserButton afterSignOutUrl="/" />
                 </div>
             </div>
