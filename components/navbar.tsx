@@ -16,6 +16,8 @@ import {
 
 import Link from "next/link";
 
+import { Button } from "@/components/ui/button"
+
 import { Services } from '@/utils/usernav';
 
 interface NavBarProps {
@@ -89,7 +91,7 @@ const NavBar:React.FC<NavBarProps> = ({
                                         <ListItem
                                             key={service.title}
                                             title={service.title}
-                                            href={service.href}
+                                            onClick={() => {}}
                                             >
                                             {service.description}
                                         </ListItem>
