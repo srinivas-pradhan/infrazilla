@@ -9,8 +9,8 @@ const AppModal = () => {
         <Modal
             title='My Modal'
             description='Testing'
-            onClose={() => {}}
-            isOpen={true}
+            onClose={AppHookModal.onClose}
+            isOpen={AppHookModal.isOpen}
         >
             <div></div>
         </Modal>
