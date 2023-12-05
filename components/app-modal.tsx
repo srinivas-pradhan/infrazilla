@@ -1,6 +1,6 @@
 'use client';
 
-import { useAppModal } from '@/hooks/use-app-modal';
+import useAppModal  from '@/hooks/use-app-modal';
 import Modal  from '@/components/ui/modal';
 
 const AppModal = () => {
