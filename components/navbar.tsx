@@ -2,6 +2,8 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
+import useAppModal from "@/hooks/use-app-modal";
+
 import { UserButton } from "@clerk/nextjs";
 import {
     NavigationMenu,
@@ -19,6 +21,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button"
 
 import { Services } from '@/utils/usernav';
+import App from "next/app";
 
 interface NavBarProps {
     width_div?: string;
@@ -67,6 +70,7 @@ const NavBar:React.FC<NavBarProps> = ({
     navbaritemstyle,
     useraccountstyle
 }) => {
+    const AppModal = useAppModal();
     const [menuOpen, setmenuOpen] = React.useState(false);
 
     const  handleNav = () => {
@@ -91,7 +95,7 @@ const NavBar:React.FC<NavBarProps> = ({
                                         <ListItem
                                             key={service.title}
                                             title={service.title}
-                                            onClick={() => {}}
+                                            onClick={AppModal.onOpen}
                                             >
                                             {service.description}
                                         </ListItem>
