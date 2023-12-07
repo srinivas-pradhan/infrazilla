@@ -1,6 +1,7 @@
 'use client';
-import * as React from "react"
-import { cn } from "@/lib/utils"
+
+import * as React from "react";
+import { cn } from "@/lib/utils";
 
 import useAppModal from "@/hooks/use-app-modal";
 
@@ -91,7 +92,7 @@ const NavBar:React.FC<NavBarProps> = ({
                                 <NavigationMenuTrigger className={cn("", dropdown_menustyling)}>Services</NavigationMenuTrigger>
                                 <NavigationMenuContent>
                                     <ul className="bg-slate-200 grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-                                    {Services.map((service) => (
+                                    {/* {Services.map((service) => (
                                         <ListItem
                                             key={service.title}
                                             title={service.title}
@@ -99,7 +100,49 @@ const NavBar:React.FC<NavBarProps> = ({
                                             >
                                             {service.description}
                                         </ListItem>
-                                    ))}
+                                    ))} */}
+                                    <ListItem
+                                        key="AWS Lambda"
+                                        title="AWS Lambda"
+                                        onClick={AppModal.onOpen}
+                                    >
+                                        Run code without thinking about servers.
+                                    </ListItem>
+                                    <ListItem
+                                        key="AWS Secrets Manager"
+                                        title="AWS Secrets Manager"
+                                        onClick={AppModal.onOpen}
+                                    >
+                                        AWS Secrets Manager helps you to securely encrypt, store, and retrieve credentials for your databases and other services.
+                                    </ListItem>
+                                    <ListItem
+                                        key="AWS Key Management Service"
+                                        title="AWS Key Management Service"
+                                        onClick={AppModal.onOpen}
+                                    >
+                                        AWS Key Management Service (AWS KMS) is an encryption and key management service scaled for the cloud.
+                                    </ListItem>
+                                    <ListItem
+                                        key="AWS Simple Notification Service"
+                                        title="AWS Simple Notification Service"
+                                        onClick={AppModal.onOpen}
+                                    >
+                                        Fully managed Pub/Sub service for A2A and A2P messaging.
+                                    </ListItem>
+                                    <ListItem
+                                        key="AWS DynamoDB"
+                                        title="AWS DynamoDB"
+                                        onClick={AppModal.onOpen}
+                                    >
+                                        Managed NoSQL database service.
+                                    </ListItem>
+                                    {/* <ListItem
+                                        key="AWS Account Onboarding"
+                                        title="AWS Account Onboarding"
+                                        onClick={AppModal.onOpen}
+                                    >
+                                        Pre-cursor step - Needed to use this platform.
+                                    </ListItem> */}
                                     </ul>
                                 </NavigationMenuContent>
                             </NavigationMenuItem>

@@ -1,8 +1,12 @@
 'use client';
 
-// When using this component for loading - then place in center and blur screen
+import useLoadingModal from '@/hooks/use-loading-modal';
 
-const Loading = () => {
+// Add Interface
+// If the boolean value for onChange using hooks state change is false - add conditional for tailwindcss to hide the loading box. 
+export const Loading = () => {
+    const LoadingModal = useLoadingModal();
+
     return ( 
         <div className="bg-white px-32 flex flex-grow justify-center">
             <div className="box-border border-4 w-36 h-45 bg-white rounded-xl p-6 space-y-6">
@@ -64,5 +68,3 @@ const Loading = () => {
         </div>
      );
 }
- 
-export default Loading;

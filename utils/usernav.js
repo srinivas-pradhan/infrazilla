@@ -1,7 +1,7 @@
 const Services = [
   {
     title: "AWS Lambda",
-    description: "Run code without thinking about servers."
+    description: "Run code without thinking about servers.",
   },
   {
     title: "AWS Secrets Manager",
