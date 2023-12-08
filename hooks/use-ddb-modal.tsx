@@ -6,7 +6,7 @@ interface useDdbModal {
     onClose: () => void;
 }
 
-const useDdbModal = create<useAppModal>((set) => ({
+const useDdbModal = create<useDdbModal>((set) => ({
     isOpen: false,
     onOpen: () => set({ isOpen: true }),
     onClose: () => set({ isOpen: false }),
