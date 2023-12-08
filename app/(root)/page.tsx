@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import { useParams } from 'next/navigation';
 
-import useAppModal  from '@/hooks/use-app-modal';
+import useAppModal  from '@/hooks/use-ddb-modal';
 
 const HomePage = () => {
   const onOpen = useAppModal((state: { onOpen: any; }) => state.onOpen);

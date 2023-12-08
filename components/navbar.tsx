@@ -3,7 +3,7 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 
-import useAppModal from "@/hooks/use-app-modal";
+import useAppModal from "@/hooks/use-ddb-modal";
 
 import { UserButton } from "@clerk/nextjs";
 import {

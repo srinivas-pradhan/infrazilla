@@ -1,15 +1,15 @@
 import { create } from 'zustand';
 
-interface useAppModal {
+interface useDdbModal {
     isOpen: boolean;
     onOpen: () => void;
     onClose: () => void;
 }
 
-const useAppModal = create<useAppModal>((set) => ({
+const useDdbModal = create<useAppModal>((set) => ({
     isOpen: false,
     onOpen: () => set({ isOpen: true }),
     onClose: () => set({ isOpen: false }),
 }));
  
-export default useAppModal;
+export default useDdbModal;

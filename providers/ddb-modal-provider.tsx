@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from "react";
 
-import AppModal from "@/components/app-modal";
+import DDBModal from "@/components/ddb-modal";
 
-export const ModalProvider = () => {
+export const DDBProvider = () => {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -17,9 +17,9 @@ export const ModalProvider = () => {
 
   return (
     <>
-      <AppModal />
+      <DDBModal />
     </>
   );
 }
 
-export default ModalProvider;
+export default DDBProvider;
