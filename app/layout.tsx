@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import { ClerkProvider } from '@clerk/nextjs'
 
 import { DDBProvider } from '@/providers/ddb-modal-provider';
+import { OnboardModalProvider } from '@/providers/onboard-modal-provider';
 import { ToasterProvider } from '@/providers/toaster-provider';
 
 import './globals.css'
@@ -24,6 +25,7 @@ export default function RootLayout({
       <html lang="en">
         <body className={inter.className}>
           <DDBProvider />
+          <OnboardModalProvider />
           <ToasterProvider />
           {children}
         </body>

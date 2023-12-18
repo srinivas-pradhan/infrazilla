@@ -1,24 +1,23 @@
 'use client';
 
-import useAppModal  from '@/hooks/use-ddb-modal';
+import useDdbModal  from '@/hooks/use-ddb-modal';
 import Modal  from '@/components/ui/modal';
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
  
 
 const DDBModal = () => {
-    const AppHookModal = useAppModal();
+    const DDBHookModal = useDdbModal();
     return ( 
         <Modal
-            title='My Modal'
-            description='Testing'
-            onClose={AppHookModal.onClose}
-            isOpen={AppHookModal.isOpen}
+            title='AWS DynamoDB'
+            description='Managed NoSQL database service.'
+            onClose={DDBHookModal.onClose}
+            isOpen={DDBHookModal.isOpen}
         >
             <div className="float-right space-x-3">
-            <Button onClick={AppHookModal.onClose}>Cancel</Button>
-            <Button variant="destructive">Submit</Button>
+                <Button variant='outline' onClick={DDBHookModal.onClose}>Cancel</Button>
+                <Button disabled variant="default">Submit</Button>
             </div>
-            <div></div>
         </Modal>
     );
 }
