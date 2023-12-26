@@ -138,13 +138,10 @@ export const OnboardModal = () => {
                         name="iam_role"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>IAM Role</FormLabel>
+                                <FormLabel>IAM Role ARN</FormLabel>
                                 <FormControl>
-                                    <Input  placeholder="IAM Role" {...field} />
+                                    <Input  placeholder="IAM Role ARN" {...field} />
                                 </FormControl>
-                                <FormDescription>
-                                    This is your AWS Account Number
-                                </FormDescription>
                                 <FormMessage />
                             </FormItem>
                             
