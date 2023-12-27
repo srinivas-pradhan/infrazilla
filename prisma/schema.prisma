@@ -6,6 +6,21 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
+}
+
+
+model AWSAccountSchema {
+  id                String @id @default(auto()) @map("_id") @db.ObjectId
+  AccountNumber     Int
+  KMSKey            String @default("")
+  IAMRole           String
+  SupportedRegions  Regions
+}
+
+enum Regions {
+  US_EAST_1                 @map("us_east_1")
+  US_WEST_1                 @map("us_west_1")
+  US_EAST_2                 @map("us_east_2")
 }

@@ -111,7 +111,7 @@ export const OnboardModal = () => {
                               className="flex flex-row items-start space-x-3 space-y-0"
                             >
                             <FormControl>
-                              <Checkbox
+                              <Checkbox 
                                 checked={field.value?.includes(item.id)}
                                 onCheckedChange={(checked) => {
                                   return checked
