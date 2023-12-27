@@ -21,7 +21,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 
-const items = [
+const regions = [
     {
       id: "us_east_1",
       label: "US-EAST-1",
@@ -40,7 +40,7 @@ const formSchema = z.object({
     account_number: z.string().length(12,{
         message: "AWS Account Number is 12 digits.",
     }),
-    items: z.array(z.string()).refine((value) => value.some((item) => item), {
+    regions: z.array(z.string()).refine((value) => value.some((item) => item), {
       message: "You have to select at least one item.",
     }),
     iam_role: z.string().regex(
@@ -49,10 +49,7 @@ const formSchema = z.object({
     ),
   })
 
-function onSubmit(values: z.infer<typeof formSchema>) {
-    // Add DB connection code here
-    console.log(values)
-}
+
 
 export const OnboardModal = () => {
     const Onboard = useonBoardModal();
@@ -62,10 +59,18 @@ export const OnboardModal = () => {
         resolver: zodResolver(formSchema),
         defaultValues: {
             account_number: "",
-            items: ["us_east_1"],
+            regions: ["us_east_1"],
         },
       })
-    
+
+      function onSubmit(data: z.infer<typeof formSchema>) {
+        Onboard.onClose();
+        toast({
+          title: "AWS Account Onboarded Successfully.",
+          description: `Account Number : ${JSON.parse(data.account_number)}`,
+        })
+      }
+
     return ( 
         <Modal
             title="AWS Account Onboarding"
@@ -99,33 +104,33 @@ export const OnboardModal = () => {
                         )}
                         
                     />
-                    {items.map((item) => (
+                    {regions.map((region) => (
                       <FormField
-                        key={item.id}
+                        key={region.id}
                         control={form.control}
-                        name="items"
+                        name="regions"
                         render={({ field }) => {
                           return(
                             <FormItem
-                              key={item.id}
+                              key={region.id}
                               className="flex flex-row items-start space-x-3 space-y-0"
                             >
                             <FormControl>
                               <Checkbox 
-                                checked={field.value?.includes(item.id)}
+                                checked={field.value?.includes(region.id)}
                                 onCheckedChange={(checked) => {
                                   return checked
-                                    ? field.onChange([...field.value, item.id])
+                                    ? field.onChange([...field.value, region.id])
                                     : field.onChange(
                                         field.value?.filter(
-                                          (value) => value !== item.id
+                                          (value) => value !== region.id
                                         )
                                       )
                                 }}
                               />
                             </FormControl>
                               <FormLabel className="font-normal">
-                                {item.label}
+                                {region.label}
                               </FormLabel>
                             </FormItem>
                             
@@ -162,7 +167,6 @@ export const OnboardModal = () => {
                             Cancel
                         </Button>
                         <Button variant="default">Submit</Button>
-                        {/* <Button disabled variant="default">Submit</Button> */}
                     </div>
                 </form>
             </Form>
