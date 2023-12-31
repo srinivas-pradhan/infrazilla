@@ -1,6 +1,7 @@
 'use client';
-
+import axios from "axios";
 import useonBoardModal from '@/hooks/use-onboard-modal';
+
 import Modal from '@/components/ui/modal';
 import {
     Form,
@@ -62,14 +63,44 @@ export const OnboardModal = () => {
             regions: ["us_east_1"],
         },
       })
-
-      function onSubmit(data: z.infer<typeof formSchema>) {
-        Onboard.onClose();
-        toast({
-          title: "AWS Account Onboarded Successfully.",
-          description: `Account Number : ${JSON.parse(data.account_number)}`,
-        })
+      const onSubmit = async (data: FormData) => {
+        try {
+          await axios.post('/api/onboard',data)
+          Onboard.onClose();
+          toast({
+            title: "AWS Account Onboarding.",
+            description: "SUCCESS",
+          })
+        } catch (error) {
+          toast({
+            variant: "destructive",
+            title: "AWS Account Onboarding.",
+            description: "FAILED",
+          })
+          Onboard.onClose();
+        }
       }
+      // async function onSubmit(data: z.infer<typeof formSchema>) {
+      //   const post_req = await axios.post('/onboard',data)
+      //     // {
+      //     //   AccountNumber: parseInt(data.account_number),
+      //     //   IAMRole: data.iam_role,
+      //     //   SupportedRegions: data.regions
+      //     // })
+      //   // Run the Prisma Connect using API
+      //   // const accnt = await prismadb.aWSAccountSchema.create({
+      //   //   data: {
+      //   //     AccountNumber: parseInt(data.account_number),
+      //   //     IAMRole: data.iam_role,
+      //   //     SupportedRegions: data.regions
+      //   //   },
+      //   // })
+      //   Onboard.onClose();
+      //   toast({
+      //     title: "AWS Account Onboarded Successfully.",
+      //     description: `Account Number : ${JSON.parse(data.account_number)}`,
+      //   })
+      // }
 
     return ( 
         <Modal
@@ -160,7 +191,7 @@ export const OnboardModal = () => {
                                 Onboard.onClose();
                                 toast({
                                     title: "AWS Account Onboarding.",
-                                    description: "Cancelled."
+                                    description: "CANCELLED."
                                 })
                             }}
                         >
