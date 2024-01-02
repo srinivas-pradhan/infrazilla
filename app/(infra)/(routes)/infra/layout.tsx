@@ -2,7 +2,7 @@ import { Prompt } from 'next/font/google';
 import ClientOnly from '@/components/ClientOnly';
 import NavBar from '@/components/navbar';
 
-import { ImageData, SwipeConfig } from '@/utils/swipe';
+import { InfraModal } from '@/components/infra-modal';
 
 const inter = Prompt({ 
   weight: '400',
@@ -14,7 +14,7 @@ export const metadata = {
   description: 'Order AWS Infrastructure using Web UI',
 }
 
-export default function RootLayout({
+export default function InfraLayout({
   children,
 }: {
   children: React.ReactNode
@@ -33,6 +33,7 @@ export default function RootLayout({
               navbaritemstyle="cursor-pointer font-mono text-gray-600 hover:text-gray-900 text-md"
               useraccountstyle="cursor-pointer font-mono text-gray-600 hover:text-gray-900 text-md"
             />
+            <InfraModal/>
         </ClientOnly>
         {children}
       </body>
