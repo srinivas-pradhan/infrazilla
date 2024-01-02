@@ -16,9 +16,11 @@ export default function InfraLayout ({
       redirect('/sign-in');
     }
 
+    // Add TEXT IF NO ACCOUNT SELECTED
+
     return (
-        <>
-          {children}
-        </>
+      <>
+        {children}
+      </>
     );
 }

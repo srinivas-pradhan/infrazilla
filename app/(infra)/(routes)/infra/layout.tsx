@@ -36,7 +36,7 @@ export default function InfraLayout({
             <InfraModal/>
         </ClientOnly>
         {children}
-      </body>
+     </body>
     </html>
   )
 }
