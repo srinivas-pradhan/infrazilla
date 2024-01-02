@@ -18,6 +18,7 @@ export async function POST(
         if (!account_number || !iam_role || regions.length === 0) {
             return new NextResponse("Account Number IAM Role and Regions are required.", {status: 400 });    
         }
+
         await prismadb.aWSAccountSchema.create({
             data: {
                 AccountNumber: parseInt(account_number),
@@ -27,7 +28,11 @@ export async function POST(
         })
         return new NextResponse("Success", { status: 201 });
     } catch (error) {
-        throw error
-        return new NextResponse("Internal Server Error", { status: 500 });
+        if (error.code === 'P2002') {
+            return new NextResponse("Failed - Already Exists", { status: 409 });
+        }
+        else {
+            return new NextResponse("Internal Server Error", { status: 500 });
+        }
     }
 }

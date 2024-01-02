@@ -22,6 +22,9 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 
+import { useParams } from "next/navigation"
+
+
 const regions = [
     {
       id: "us_east_1",
@@ -54,6 +57,7 @@ const formSchema = z.object({
 
 export const OnboardModal = () => {
     const Onboard = useonBoardModal();
+    const params = useParams();
     const { toast } = useToast();
 
     const form = useForm<z.infer<typeof formSchema>>({
@@ -64,7 +68,7 @@ export const OnboardModal = () => {
         },
       })
       const onSubmit = async (data: FormData) => {
-        try {
+        try {          
           await axios.post('/api/onboard',data)
           Onboard.onClose();
           toast({
@@ -72,35 +76,25 @@ export const OnboardModal = () => {
             description: "SUCCESS",
           })
         } catch (error) {
-          toast({
-            variant: "destructive",
-            title: "AWS Account Onboarding.",
-            description: "FAILED",
-          })
-          Onboard.onClose();
+            if (error.response.status === 409) {
+              Onboard.onClose();
+              toast({
+                variant: "destructive",
+                title: "AWS Account Onboarding.",
+                description: "FAILED - Already Exixts.",
+              })
+            }
+            else {
+              Onboard.onClose();
+              toast({
+                variant: "destructive",
+                title: "AWS Account Onboarding.",
+                description: "FAILED - Please try again.",
+              })
+            }
+
         }
       }
-      // async function onSubmit(data: z.infer<typeof formSchema>) {
-      //   const post_req = await axios.post('/onboard',data)
-      //     // {
-      //     //   AccountNumber: parseInt(data.account_number),
-      //     //   IAMRole: data.iam_role,
-      //     //   SupportedRegions: data.regions
-      //     // })
-      //   // Run the Prisma Connect using API
-      //   // const accnt = await prismadb.aWSAccountSchema.create({
-      //   //   data: {
-      //   //     AccountNumber: parseInt(data.account_number),
-      //   //     IAMRole: data.iam_role,
-      //   //     SupportedRegions: data.regions
-      //   //   },
-      //   // })
-      //   Onboard.onClose();
-      //   toast({
-      //     title: "AWS Account Onboarded Successfully.",
-      //     description: `Account Number : ${JSON.parse(data.account_number)}`,
-      //   })
-      // }
 
     return ( 
         <Modal
