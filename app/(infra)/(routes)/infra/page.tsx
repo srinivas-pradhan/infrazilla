@@ -15,9 +15,6 @@ export default function InfraLayout ({
     if (!userId) {
       redirect('/sign-in');
     }
-
-    // Add TEXT IF NO ACCOUNT SELECTED
-
     return (
       <>
         {children}

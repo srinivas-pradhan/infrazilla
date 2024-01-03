@@ -1,5 +1,7 @@
 'use client';
 
+import React, { useState } from "react";
+import { Loader2 } from "lucide-react"
 import axios from "axios";
 import useonBoardModal from '@/hooks/use-onboard-modal';
 
@@ -57,6 +59,7 @@ const formSchema = z.object({
 
 
 export const OnboardModal = () => {
+    const [ loading, setloading ] = useState(false);
     const Onboard = useonBoardModal();
     const params = useParams();
     const { toast } = useToast();
@@ -69,7 +72,8 @@ export const OnboardModal = () => {
         },
       })
       const onSubmit = async (data: FormData) => {
-        try {          
+        try {        
+          setloading(true);  
           await axios.post('/api/onboard',data)
           Onboard.onClose();
           toast({
@@ -93,7 +97,8 @@ export const OnboardModal = () => {
                 description: "FAILED - Please try again.",
               })
             }
-
+        } finally{
+          setloading(false);
         }
       }
 
@@ -119,7 +124,7 @@ export const OnboardModal = () => {
                             <FormItem>
                                 <FormLabel>AWS Account Number</FormLabel>
                                 <FormControl>
-                                    <Input  placeholder="AWS Account Number" {...field} />
+                                    <Input  disabled={loading} placeholder="AWS Account Number" {...field} />
                                 </FormControl>
                                 <FormDescription>
                                     This is your AWS Account Number
@@ -142,7 +147,8 @@ export const OnboardModal = () => {
                               className="flex flex-row items-start space-x-3 space-y-0"
                             >
                             <FormControl>
-                              <Checkbox 
+                              <Checkbox
+                                disabled={loading}
                                 checked={field.value?.includes(region.id)}
                                 onCheckedChange={(checked) => {
                                   return checked
@@ -171,7 +177,7 @@ export const OnboardModal = () => {
                             <FormItem>
                                 <FormLabel>IAM Role ARN</FormLabel>
                                 <FormControl>
-                                    <Input  placeholder="IAM Role ARN" {...field} />
+                                    <Input disabled={loading} placeholder="IAM Role ARN" {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -181,7 +187,8 @@ export const OnboardModal = () => {
                     />
                     <div className="float-right space-x-3">
                         <Button 
-                            variant='outline' 
+                            variant='outline'
+                            disabled={loading}
                             onClick={() => {
                                 Onboard.onClose();
                                 toast({
@@ -192,7 +199,22 @@ export const OnboardModal = () => {
                         >
                             Cancel
                         </Button>
-                        <Button variant="default">Submit</Button>
+                          {
+                          loading ? 
+                          <Button
+                            disabled={loading}
+                          >
+                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                            Please wait
+                          </Button> 
+                          : 
+                          <Button
+                            disabled={loading}
+                            variant="default"
+                          >
+                            Submit
+                          </Button>
+                        }
                     </div>
                 </form>
             </Form>
