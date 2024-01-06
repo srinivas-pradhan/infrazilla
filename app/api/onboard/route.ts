@@ -9,7 +9,7 @@ export async function POST(
 ) {
     try {
         const { userId } = auth();
-        const {account_number, regions, iam_role} = await req.json();
+        const {account_number, account_name, regions, iam_role} = await req.json();
 
         if (!userId) {
             return new NextResponse("Unauthenticated", { status: 403 });
@@ -22,6 +22,7 @@ export async function POST(
         await prismadb.aWSAccountSchema.create({
             data: {
                 AccountNumber: parseInt(account_number),
+                AccountName: account_name,
                 SupportedRegions: regions,
                 IAMRole: iam_role
             }

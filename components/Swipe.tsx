@@ -33,7 +33,7 @@ const Swipe:React.FC<SwipeProps> = ({
     loop
 }) => {
     return (  
-        <div className="bg-white px-32 flex justify-center">
+        <div className="bg-white px-32 flex justify-center p-10">
             <Swiper
                 className="rounded-2xl"
                 modules={[Mousewheel, Autoplay, Pagination]}

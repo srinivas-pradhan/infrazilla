@@ -2,8 +2,6 @@ import { Prompt } from 'next/font/google';
 import ClientOnly from '@/components/ClientOnly';
 import NavBar from '@/components/navbar';
 
-import { InfraModal } from '@/components/infra-modal';
-
 const inter = Prompt({ 
   weight: '400',
   subsets: ['latin'] 
@@ -33,9 +31,28 @@ export default function InfraLayout({
               navbaritemstyle="cursor-pointer font-mono text-gray-600 hover:text-gray-900 text-md"
               useraccountstyle="cursor-pointer font-mono text-gray-600 hover:text-gray-900 text-md"
             />
-            <InfraModal/>
-        </ClientOnly>
-        {children}
+            <div className="container ">
+              <div className="h-screen flex items-center justify-center px-96 py-52">
+                  <div className="justify-center 
+                    bg-white
+                    box-border 
+                    rounded-lg 
+                    h-full 
+                    w-full 
+                    border-2
+                    border-slate-400 
+                    hover:border-zinc-700
+                    hover:shadow-2xl
+                    hover:-translate-y-1 
+                    hover:scale-110 
+                    duration-300
+                  ">
+
+                  </div>
+              </div>
+            </div>  
+          </ClientOnly>
+          {children}
      </body>
     </html>
   )

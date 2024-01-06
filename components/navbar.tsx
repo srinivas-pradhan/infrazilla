@@ -5,7 +5,6 @@ import { cn } from "@/lib/utils";
 
 import useDdbModal from "@/hooks/use-ddb-modal";
 import useonBoardModal from "@/hooks/use-onboard-modal";
-import UseInfraModal from "@/hooks/use-infra-modal";
 
 import { UserButton } from "@clerk/nextjs";
 import {
@@ -26,7 +25,6 @@ import { Button } from "@/components/ui/button"
 import { Services } from '@/utils/usernav';
 import App from "next/app";
 import { OnboardModal } from "./onboard-modal";
-import { InfraModal } from "./infra-modal";
 
 interface NavBarProps {
     width_div?: string;
@@ -77,7 +75,6 @@ const NavBar:React.FC<NavBarProps> = ({
 }) => {
     const DdbModal = useDdbModal();
     const OnboardModal = useonBoardModal();
-    const InfraModal = UseInfraModal();
     const [menuOpen, setmenuOpen] = React.useState(false);
 
     const  handleNav = () => {
@@ -172,7 +169,6 @@ const NavBar:React.FC<NavBarProps> = ({
                             <Link href="/infra" legacyBehavior passHref>
                                 <NavigationMenuLink 
                                     className={cn("", navbaritemstyle)}
-                                    onClick={InfraModal.onOpen}
                                 >
                                     My Infrastructure
                                 </NavigationMenuLink>

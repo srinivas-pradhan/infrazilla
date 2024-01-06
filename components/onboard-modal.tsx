@@ -54,6 +54,10 @@ const formSchema = z.object({
       /^arn:aws:iam::\d{12}:role\/[A-Za-z0-9_]+$/,
       "Please pass a correct AWS IAM Role ARN"
     ),
+    account_name: z.string().regex(
+      /[a-z]{3}-[a-z]{3}/,
+      "Please pass the account name in [abc-xyz] format"
+    ),
   })
 
 
@@ -69,6 +73,7 @@ export const OnboardModal = () => {
         defaultValues: {
             account_number: "",
             regions: ["us_east_1"],
+            account_name: "",
         },
       })
       const onSubmit = async (data: FormData) => {
@@ -119,15 +124,35 @@ export const OnboardModal = () => {
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                     <FormField
                         control={form.control}
+                        name="account_name"
+                        render={({ field }) => (
+                            
+                            <FormItem>
+                                <FormLabel>AWS Account Name</FormLabel>
+                                <FormControl>
+                                    <Input  disabled={loading} placeholder="AWS Account Name" {...field} />
+                                </FormControl>
+                                <FormDescription>
+                                    This is your AWS Account Name ex: [abc-xyz]
+                                </FormDescription>
+                                <FormMessage />
+                            </FormItem>
+                            
+                        )}
+                        
+                    />
+                    <FormField
+                        control={form.control}
                         name="account_number"
                         render={({ field }) => (
+                            
                             <FormItem>
                                 <FormLabel>AWS Account Number</FormLabel>
                                 <FormControl>
                                     <Input  disabled={loading} placeholder="AWS Account Number" {...field} />
                                 </FormControl>
                                 <FormDescription>
-                                    This is your AWS Account Number
+                                    This is your AWS Account Name
                                 </FormDescription>
                                 <FormMessage />
                             </FormItem>
