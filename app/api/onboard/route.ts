@@ -37,3 +37,26 @@ export async function POST(
         }
     }
 }
+
+export async function GET(
+) {
+    try {
+        const { userId } = auth();
+
+        if (!userId) {
+            return new NextResponse("Unauthenticated", { status: 403 });
+        }
+        var acc = []
+        const accounts = await prismadb.aWSAccountSchema.findMany({
+            select: {
+                AccountName: true
+            }
+        })
+        for (var i=0; i<accounts.length; i++) {
+            acc.push(accounts[i].AccountName)
+        }
+        return new NextResponse(acc, {status: 200})
+    } catch (error) {
+        return new NextResponse("Internal Server Error", { status: 500 });
+    }
+}

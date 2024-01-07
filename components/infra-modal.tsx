@@ -36,21 +36,6 @@ import {
     SelectValue,
   } from "@/components/ui/select";
 
-const regions = [
-    {
-      id: "us_east_1",
-      label: "US-EAST-1",
-    },
-    {
-      id: "us_east_2",
-      label: "US-EAST-2",
-    },
-    {
-      id: "us_west_1",
-      label: "US-WEST-1",
-    }
-  ] as const
-
 const FormSchema = z.object({
     email: z
       .string({
@@ -70,10 +55,20 @@ export const InfraModal = () => {
         resolver: zodResolver(FormSchema),
     })
 
+    const accts = async () => {
+        try {
+            const accounts = await axios.get('/api/onboard')
+            return accounts.data
+        }
+        catch(error) {
+            return error
+        }
+    }
+
       const onSubmit = async (data: FormData) => {
         setloading(true);
         router.push('/')
-        // console.log(JSON.stringify(data.email))
+        accts()
       }
 
     return ( 
