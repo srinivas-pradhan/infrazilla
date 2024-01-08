@@ -16,7 +16,8 @@ import {
     FormItem,
     FormLabel,
     FormMessage,
-  } from "@/components/ui/form"
+} from "@/components/ui/form"
+
 import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/use-toast"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -28,24 +29,16 @@ import { useForm } from "react-hook-form"
 import * as z from "zod"
 
 import { useParams } from "next/navigation"
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-  } from "@/components/ui/select";
 
 const FormSchema = z.object({
-    email: z
-      .string({
-        required_error: "Please select an email to display.",
-      })
-      .email(),
+    aws_account: z.string({
+        required_error: "Please select an AWS account.",
+    }),
+    
   })
 
 
-export const InfraModal = () => {
+export const  InfraModal = () => {
     const [ loading, setloading ] = useState(false);
     const Infra = UseInfraModal();
     const params = useParams();
@@ -55,6 +48,7 @@ export const InfraModal = () => {
         resolver: zodResolver(FormSchema),
     })
 
+    var acc = []
     const accts = async () => {
         try {
             const accounts = await axios.get('/api/onboard')
@@ -64,13 +58,15 @@ export const InfraModal = () => {
             return error
         }
     }
-
-      const onSubmit = async (data: FormData) => {
+    accts().then(
+        res => {
+            acc = res
+        }
+    )
+    const onSubmit = async (data: FormData) => {
         setloading(true);
         router.push('/')
-        accts()
-      }
-
+    }
     return ( 
         <Modal
             title="Select AWS Account"
@@ -82,23 +78,10 @@ export const InfraModal = () => {
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                     <FormField
                         control={form.control}
-                        name="email"
+                        name="aws_account"
                         render={({ field }) => (
                             <FormItem disabled={loading}>
                             <FormLabel>Account Name</FormLabel>
-                            <Select disabled={loading} onValueChange={field.onChange} defaultValue={field.value}>
-                                <FormControl>
-                                <SelectTrigger>
-                                    <SelectValue placeholder="Select an onboarded account" />
-                                </SelectTrigger>
-                                </FormControl>
-                                <SelectContent>
-                                <SelectItem value="m@example.com">m@example.com</SelectItem>
-                                <SelectItem value="m@google.com">m@google.com</SelectItem>
-                                <SelectItem value="m@support.com">m@support.com</SelectItem>
-                                </SelectContent>
-                            </Select>
-                            <FormMessage />
                             </FormItem>
                         )}
                         />

@@ -52,10 +52,10 @@ export async function GET(
                 AccountName: true
             }
         })
-        for (var i=0; i<accounts.length; i++) {
+        for (var i=0; i<accounts.length; i++) {     
             acc.push(accounts[i].AccountName)
         }
-        return new NextResponse(acc, {status: 200})
+        return new NextResponse(JSON.stringify(acc))
     } catch (error) {
         return new NextResponse("Internal Server Error", { status: 500 });
     }
