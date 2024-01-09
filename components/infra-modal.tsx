@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Loader2 } from "lucide-react"
 import axios from "axios";
 import UseInfraModal from '@/hooks/use-infra-modal';
@@ -17,6 +17,13 @@ import {
     FormLabel,
     FormMessage,
 } from "@/components/ui/form"
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+  } from "@/components/ui/select"
 
 import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/use-toast"
@@ -40,6 +47,7 @@ const FormSchema = z.object({
 
 export const  InfraModal = () => {
     const [ loading, setloading ] = useState(false);
+    const [ apidata, setapiData ] = useState([]);
     const Infra = UseInfraModal();
     const params = useParams();
     const router = useRouter();
@@ -48,26 +56,20 @@ export const  InfraModal = () => {
         resolver: zodResolver(FormSchema),
     })
 
-    var acc = []
-    const accts = async () => {
-        try {
-            const accounts = await axios.get('/api/onboard')
-            return accounts.data
-        }
-        catch(error) {
-            return error
-        }
-    }
-    accts().then(
-        res => {
-            acc = res
-        }
-    )
+    useEffect(() => {
+        fetch('/api/onboard')
+        .then((res) => res.json())
+        .then((apidata) => {
+            setapiData(apidata)
+        })
+    },[apidata])
+
     const onSubmit = async (data: FormData) => {
         setloading(true);
         router.push('/')
     }
-    return ( 
+
+    return (
         <Modal
             title="Select AWS Account"
             description="To start working with all deployed resources in that account."
@@ -80,8 +82,20 @@ export const  InfraModal = () => {
                         control={form.control}
                         name="aws_account"
                         render={({ field }) => (
-                            <FormItem disabled={loading}>
+                            <FormItem>
                             <FormLabel>Account Name</FormLabel>
+                                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                    <FormControl>
+                                        <SelectTrigger>
+                                        <SelectValue placeholder="Select an AWS account" />
+                                        </SelectTrigger>
+                                    </FormControl>
+                                    <SelectContent>
+                                        {apidata.map((item) => (
+                                            <SelectItem value={item.AccountName}>{item.AccountName}  ( Account Number : {item.AccountNumber} )</SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
                             </FormItem>
                         )}
                         />
