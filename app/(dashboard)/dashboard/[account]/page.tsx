@@ -4,6 +4,7 @@ import { auth } from '@clerk/nextjs';
 import { Prompt } from 'next/font/google';
 import ClientOnly from '@/components/ClientOnly';
 import NavBar from '@/components/navbar';
+import AccountDetails from '@/app/(dashboard)/dashboard/[account]/components/account-details';
 
 const inter = Prompt({ 
   weight: '400',
@@ -43,6 +44,9 @@ export default function AccountPage ({
               navbaritemstyle="cursor-pointer font-mono text-gray-600 hover:text-gray-900 text-md"
               useraccountstyle="cursor-pointer font-mono text-gray-600 hover:text-gray-900 text-md"
             />
+            <div className="p-20">
+              <AccountDetails/>
+            </div>
         </ClientOnly>
         {children}
       </body>
