@@ -1,6 +1,8 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import { redirect } from 'next/navigation';
+
 
 import React, { useState, useEffect } from "react";
 import { Loader2 } from "lucide-react"
@@ -17,6 +19,7 @@ import {
     FormLabel,
     FormMessage,
 } from "@/components/ui/form"
+
 import {
     Select,
     SelectContent,
@@ -36,6 +39,7 @@ import { useForm } from "react-hook-form"
 import * as z from "zod"
 
 import { useParams } from "next/navigation"
+import { cn } from '@/lib/utils';
 
 const FormSchema = z.object({
     aws_account: z.string({
@@ -57,18 +61,21 @@ export const  InfraModal = () => {
     })
 
     useEffect(() => {
+        setloading(true);
         fetch('/api/onboard')
         .then((res) => res.json())
         .then((apidata) => {
             setapiData(apidata)
         })
-    },[apidata])
+        setloading(false);
+    },[])
 
     const onSubmit = async (data: FormData) => {
-        setloading(true);
-        router.push('/')
-    }
+        // router.push('/')
+        console.log(data)
+        router.push(`/dashboard/${data.aws_account}`)
 
+    }
     return (
         <Modal
             title="Select AWS Account"

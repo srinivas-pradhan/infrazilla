@@ -49,8 +49,8 @@ export async function GET(
         // var acc = []
         const accounts = await prismadb.aWSAccountSchema.findMany({
             select: {
-                AccountName: true,
-                AccountNumber: true
+                AccountNumber: true,
+                AccountName: true
             }
         })
         // for (var i=0; i<accounts.length; i++) {     

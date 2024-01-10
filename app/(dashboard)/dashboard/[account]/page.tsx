@@ -1,9 +1,9 @@
+import { redirect } from 'next/navigation';
+import { auth } from '@clerk/nextjs';
+
 import { Prompt } from 'next/font/google';
 import ClientOnly from '@/components/ClientOnly';
 import NavBar from '@/components/navbar';
-import { InfraModal } from '@/components/infra-modal';
-
-import { ImageData, SwipeConfig } from '@/utils/swipe';
 
 const inter = Prompt({ 
   weight: '400',
@@ -15,13 +15,22 @@ export const metadata = {
   description: 'Order AWS Infrastructure using Web UI',
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
-  return (
-    <html lang="en">
+export default function AccountPage ({
+    children,
+    params
+} : {
+    children: React.ReactNode,
+    params: { account: string }
+  })
+  {
+    const { userId } = auth();
+
+    if (!userId) {
+      redirect('/sign-in');
+    }
+
+    return (
+      <html lang="en">
       <body className={inter.className}>
         <ClientOnly>
             <NavBar
@@ -34,10 +43,9 @@ export default function RootLayout({
               navbaritemstyle="cursor-pointer font-mono text-gray-600 hover:text-gray-900 text-md"
               useraccountstyle="cursor-pointer font-mono text-gray-600 hover:text-gray-900 text-md"
             />
-            <InfraModal/>
         </ClientOnly>
         {children}
       </body>
     </html>
-  )
+    );
 }

@@ -4,8 +4,7 @@ import { auth } from '@clerk/nextjs';
 import prismadb from "@/lib/prismadb"
 
 export async function GET (
-    req:Request,
-    { params }: { params: { account_number: string } }
+    { params }: { params: { account: string } }
 ) {
     try {
         const { userId } = auth();
@@ -13,18 +12,22 @@ export async function GET (
             return new NextResponse("Unauthenticated", { status: 403 });
         }
 
-        if (!params.account_number) {
-            return new NextResponse("Account Number is required", { status: 400 });
+        if (!params.account) {
+            return new NextResponse("Account Name is required", { status: 400 });
         }
 
         const accnt_details = await prismadb.aWSAccountSchema.findUnique({
             where: {
-                AccountNumber: parseInt(params.account_number)
+                AccountName: params.account
             }
         })
-        return NextResponse.json({"found": true});
+        return NextResponse.json(JSON.stringify(accnt_details));
     } catch (error) {
-        throw error
-        return new NextResponse("Internal Server Error", { status: 500 });
+        if (error.code === 'P5003') {
+            return new NextResponse("Failed - Not Found", { status: 404 });
+        }
+        else {
+            return new NextResponse("Internal Server Error", { status: 500 });
+        }
     }
 }
