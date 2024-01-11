@@ -44,7 +44,7 @@ export default function AccountPage ({
               navbaritemstyle="cursor-pointer font-mono text-gray-600 hover:text-gray-900 text-md"
               useraccountstyle="cursor-pointer font-mono text-gray-600 hover:text-gray-900 text-md"
             />
-            <div className=" grid grid-cols-3 gap-4 px-96 py-40">
+            <div className=" grid grid-cols-3 gap-20 p-10">
               <div>
                 <AccountDetails/>
               </div>
