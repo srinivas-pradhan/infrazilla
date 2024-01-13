@@ -59,9 +59,9 @@ const AccountDetails = () => {
                         <h1 className="text-3xl font-semibold">The King's Man</h1>
                         <p className="my-2">9.0 Rating</p>
                         <button
-                            className="bg-teal-500 px-6 py-2 font-semibold text-white rounded-full absolute -bottom-20 delay-500 duration-1000 group-hover:bottom-5 scale-0 group-hover:scale-125"
+                            className="bg-teal-500 px-6 py-2 font-semibold text-white rounded-full absolute -bottom-20 delay-500 duration-1000 group-hover:bottom-5 scale-0 group-hover:scale-100"
                         >
-                            Watch Now
+                            Details
                         </button>
                     </div>
                 </div>
