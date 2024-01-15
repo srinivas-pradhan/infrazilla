@@ -72,7 +72,7 @@ const AccountDetails:React.FC<AccountDetailsProps> = (
                             height={125}
                             alt="AWS Logo"
                         /> 
-                        <h1 className="py-4 text-3xl font-semibold">Account Number</h1>
+                        <h1 className="py-8 text-3xl font-semibold">Account Number</h1>
                         <p className="my-2 py-4 text-xl">9.0 Rating</p>
                     </div>
                 </div>
