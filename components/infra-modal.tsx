@@ -35,10 +35,9 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Button } from "@/components/ui/button";
 
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import * as z from "zod"
+import { useForm } from "react-hook-form";
+import * as z from "zod";
 
-import { useParams } from "next/navigation"
 import { cn } from '@/lib/utils';
 
 const FormSchema = z.object({
@@ -53,7 +52,6 @@ export const  InfraModal = () => {
     const [ loading, setloading ] = useState(false);
     const [ apidata, setapiData ] = useState([]);
     const Infra = UseInfraModal();
-    const params = useParams();
     const router = useRouter();
 
     const form = useForm<z.infer<typeof FormSchema>>({
@@ -71,8 +69,6 @@ export const  InfraModal = () => {
     },[])
 
     const onSubmit = async (data: FormData) => {
-        // router.push('/')
-        console.log(data)
         router.push(`/dashboard/${data.aws_account}`)
 
     }
