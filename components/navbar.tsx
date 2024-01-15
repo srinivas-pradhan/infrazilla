@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import useDdbModal from "@/hooks/use-ddb-modal";
 import useonBoardModal from "@/hooks/use-onboard-modal";
 import UseInfraModal from "@/hooks/use-infra-modal";
+import UseKMSModal from "@/hooks/use-kms-modal";
 
 import { UserButton } from "@clerk/nextjs";
 import {
@@ -78,6 +79,7 @@ const NavBar:React.FC<NavBarProps> = ({
     const DdbModal = useDdbModal();
     const OnboardModal = useonBoardModal();
     const InfraModal = UseInfraModal();
+    const KMSModal = UseKMSModal();
     const [menuOpen, setmenuOpen] = React.useState(false);
 
     const  handleNav = () => {
@@ -124,7 +126,7 @@ const NavBar:React.FC<NavBarProps> = ({
                                     <ListItem
                                         key="AWS Key Management Service"
                                         title="AWS Key Management Service"
-                                        onClick={() => {}}
+                                        onClick={KMSModal.onOpen}
                                     >
                                         AWS Key Management Service (AWS KMS) is an encryption and key management service scaled for the cloud.
                                     </ListItem>

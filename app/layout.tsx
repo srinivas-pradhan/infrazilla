@@ -5,6 +5,7 @@ import { ClerkProvider } from '@clerk/nextjs'
 import { DDBProvider } from '@/providers/ddb-modal-provider';
 import { OnboardModalProvider } from '@/providers/onboard-modal-provider';
 import { ToasterProvider } from '@/providers/toaster-provider';
+import { KMSModalProvider } from '@/providers/kms-modal-provider';
 
 import './globals.css'
 
@@ -27,6 +28,7 @@ export default function RootLayout({
           <DDBProvider />
           <OnboardModalProvider />
           <ToasterProvider />
+          <KMSModalProvider/>
           {children}
         </body>
       </html>
