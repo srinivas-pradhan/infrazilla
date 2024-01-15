@@ -1,9 +1,29 @@
 'use client';
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 
+interface AccountDetailsProps {
+    account_name: string,
+}
 
-const AccountDetails = () => {
+const AccountDetails:React.FC<AccountDetailsProps> = (
+    account_name,
+) => {
+    const [ apidata, setapiData ] = useState([]);
+    const [ loading, setloading ] = useState(false);
+
+    useEffect(() => {
+        setloading(true);
+        fetch(`/api/onboard/${account_name.account_name}`)
+        .then((res) => res.json())
+        .then((apidata) => {
+            setapiData(apidata)
+        })
+        setloading(false);
+    },[])
+    console.log(apidata)
+
     return (
         <div className="
             box-border
@@ -33,14 +53,35 @@ const AccountDetails = () => {
                     w-96
                 "
                 >
-                    <img src="/slider2.jpg" className="w-96 h-96 rounded-3xl" />                                               
+                    <div className="
+                        w-96 
+                        h-96 
+                        rounded-3xl 
+                        bg-slate-200 
+                        flex 
+                        flex-col 
+                        justify-center 
+                        items-center
+                        text-center 
+                        px-2
+                        "
+                    >
+                        <Image className="rounded-xl"
+                            src="/aws.png"
+                            width={125}
+                            height={125}
+                            alt="AWS Logo"
+                        /> 
+                        <h1 className="py-4 text-3xl font-semibold">Account Number</h1>
+                        <p className="my-2 py-4 text-xl">9.0 Rating</p>
+                    </div>
                 </div>
                 <div className="absolute 
                     my-rotate-y-180 
                     backface-hidden 
                     h-96
                     w-96
-                    bg-gray-100 
+                    bg-black
                     overflow-hidden
                     rounded-3xl
                     "
@@ -53,7 +94,7 @@ const AccountDetails = () => {
                         h-full 
                         px-2 
                         pb-24
-                        text-gray-800 
+                        text-white
                         "
                     >
                         <h1 className="text-3xl font-semibold">The King's Man</h1>
@@ -67,6 +108,7 @@ const AccountDetails = () => {
                 </div>
             </div>
         </div>
+        
     );
 }
  
